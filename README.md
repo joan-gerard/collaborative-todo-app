@@ -15,8 +15,9 @@ Real Time Collaborative Todo App
 * CRDT
     * Socket.io
 
+[Queries & Mutations Gists](https://gist.github.com/joan-gerard/f769f421ab2c3a4a06f4945af1a1deb3)
 
 ## Get Started
+...
 
-[Queries & Mutations Gists](https://)
 

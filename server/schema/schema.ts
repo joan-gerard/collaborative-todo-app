@@ -31,7 +31,7 @@ const RootQuery = new GraphQLObjectType({
         return Todo.find();
       },
     },
-    client: {
+    todo: {
       type: TodoType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
