@@ -1,4 +1,5 @@
 import Todo from "../models/Todo";
+import List from "../models/List";
 
 import {
   GraphQLEnumType,
@@ -20,6 +21,14 @@ const TodoType = new GraphQLObjectType({
     status: { type: GraphQLString },
   }),
 });
+const ListType = new GraphQLObjectType({
+  name: "List",
+  fields: () => ({
+    id: { type: GraphQLID },
+    listName: { type: GraphQLString },
+    listDesc: { type: GraphQLString },
+  }),
+});
 
 // Root Queries
 const RootQuery = new GraphQLObjectType({
@@ -38,6 +47,19 @@ const RootQuery = new GraphQLObjectType({
         return Todo.findById(args.id);
       },
     },
+    lists: {
+      type: new GraphQLList(ListType),
+      resolve(parent, args) {
+        return List.find();
+      },
+    },
+    list: {
+      type: ListType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return List.findById(args.id);
+      },
+    },
   },
 });
 
@@ -51,16 +73,15 @@ const mutation = new GraphQLObjectType({
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         status: {
-            type: new GraphQLEnumType({
-              name: "TodoStatus",
-              values: {
-                new: { value: "Pending" },
-                completed: { value: "Done" },
-              },
-            }),
-            defaultValue: "Pending",
-          },
-  
+          type: new GraphQLEnumType({
+            name: "TodoStatus",
+            values: {
+              new: { value: "Pending" },
+              completed: { value: "Done" },
+            },
+          }),
+          defaultValue: "Pending",
+        },
       },
       resolve(parent, args) {
         const todo = new Todo({
@@ -69,6 +90,20 @@ const mutation = new GraphQLObjectType({
           status: args.status,
         });
         return todo.save();
+      },
+    },
+    addList: {
+      type: ListType,
+      args: {
+        listName: { type: new GraphQLNonNull(GraphQLString) },
+        listDesc: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        const list = new List({
+          listName: args.listName,
+          listDesc: args.listDesc,
+        });
+        return list.save();
       },
     },
   },
