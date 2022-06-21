@@ -1,4 +1,4 @@
-# Project Management System
+# Real Time Collaborative Todo App
 
 ## The app
 
