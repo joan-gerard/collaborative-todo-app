@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navbar-brand {
+  color: #df3ca6;
+}
+
+.navbar-brand img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.btn {
+  font-size: 15px;
+}
+
+.btn-primary,
+.bg-primary {
+  background-color: #df3ca6 !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #df3ca6;
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: #7430f9;
+}
+
+.btn-secondary:hover {
+  background-color: #7430f9;
+  opacity: 0.9;
+}
+
+.btn-effect > div::before {
+  content: "";
+  /* display: block; */
+  width: 20px;
+  height: 17px;
+  overflow: hidden;
+  background-image: url("./components/assets/list.svg");
+  background-repeat: no-repeat;
+  transition: width 300ms, margin-left 300ms;
+}
+.btn-effect:is(:hover) >div::before {
+  width: 0px;
+  height: 0;
+  /* margin-left: 8px; */
+}
+
+.btn-effect > div::after {
+  content: "";
+  display: block;
+  width: 0px;
+  /* height: 15px; */
+  margin-right: 0;
+
+  overflow: hidden;
+  background-image: url("./components/assets/arrow-ar.svg");
+  background-repeat: no-repeat;
+  transition: width 300ms, margin-left 300ms;
+}
+
+.btn-effect:is(:hover) > div::after {
+  width: 20px;
+  height: 15px;
+
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+.btn-effect:hover {
+  padding-right: 0.1;
+}
+
+.icon {
+  margin-right: 6px;
+}
+
+
+.gantt-container {
+  width: 90vw; 
+  margin: 0 auto;
+}
