@@ -106,6 +106,24 @@ const mutation = new GraphQLObjectType({
         return list.save();
       },
     },
+    deleteList: {
+      type: ListType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return List.findByIdAndRemove(args.id);
+      },
+    },
+    deleteTodo: {
+      type: TodoType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Todo.findByIdAndRemove(args.id);
+      },
+    },
   },
 });
 

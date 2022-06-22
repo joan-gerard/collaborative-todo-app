@@ -33,7 +33,7 @@ const AddTodoModal = () => {
     <div>
       <button
         type="button"
-        className="btn btn-secondary mt-3"
+        className="btn btn-secondary mt-3 mb-3"
         data-bs-toggle="modal"
         data-bs-target="#addTodoModal"
       >
