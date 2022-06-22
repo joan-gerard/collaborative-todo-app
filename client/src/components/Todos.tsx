@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_TODOS } from "../queries/todoQueries";
 import Spinner from "../components/Spinner";
 import TodoRow from "./TodoRow";
+import TodosTable from "./TodosTable";
 
 const Todos = () => {
   const { loading, error, data } = useQuery(GET_TODOS);
@@ -12,13 +13,14 @@ const Todos = () => {
 
   return (
     <>
-      {!loading && !error && (
+      {/* {!loading && !error && (
         <div>
           {data.todos.map((todo: ITodo, i: number) => (
             <TodoRow key={i} todo={todo} />
           ))}
         </div>
-      )}
+      )} */}
+      <TodosTable />
     </>
   );
 };
