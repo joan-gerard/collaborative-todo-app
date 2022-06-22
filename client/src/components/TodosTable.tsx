@@ -60,7 +60,6 @@ interface Data {
 //   return { name, code, population, size, density };
 // }
 
-
 export default function TodosTable() {
   const { loading, error, data } = useQuery(GET_TODOS);
 
@@ -101,16 +100,11 @@ export default function TodosTable() {
                       {column.label}
                     </TableCell>
                   ))}
-                  {/* <TableCell>Title</TableCell>
-                  <TableCell>Content</TableCell>
-                  <TableCell>Deadline</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Priority</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data.todos
-                  //   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((todo: ITodo, i: number) => {
                     return (
                       <TableRow hover role="checkbox" tabIndex={-1} key={i}>
@@ -122,11 +116,6 @@ export default function TodosTable() {
                             </TableCell>
                           );
                         })}
-                        {/* <TableCell>{todo.title}</TableCell>
-                        <TableCell>{todo.content}</TableCell>
-                        <TableCell>{todo.deadline}</TableCell>
-                        <TableCell>{todo.status}</TableCell>
-                        <TableCell>{todo.priority}</TableCell> */}
                       </TableRow>
                     );
                   })}
