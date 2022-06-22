@@ -25,8 +25,11 @@ code {
   font-size: 15px;
 }
 
-.btn-primary,
-.bg-primary {
+.bg-grey {
+  background-color: #777c90;
+}
+
+.btn-primary {
   background-color: #df3ca6 !important;
   border: none;
 }

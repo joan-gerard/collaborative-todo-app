@@ -10,7 +10,7 @@ const ListCard: React.FC<ListCardProps> = ({ list }) => {
               <p>{list.listName}</p>
               <p>{list.listDesc}</p>
             </div>
-            <a className="btn btn-secondary" href={`/project/${list.id}`}>
+            <a className="btn btn-secondary" href={`/list/${list.id}`}>
               View
             </a>
           </div>
