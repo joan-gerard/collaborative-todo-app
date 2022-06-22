@@ -7,9 +7,16 @@ const TodoSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  deadline: {
+    type: String,
+  },
   status: {
     type: String,
     enum: ["Pending", "Done"],
+  },
+  priority: {
+    type: String,
+    enum: ["Low", "Medium", "High"],
   },
 });
 

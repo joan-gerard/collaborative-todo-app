@@ -28,6 +28,8 @@ const TodoRow: React.FC<TodoRowProps> = ({ todo }) => {
       <div className="ps-2">
         <p className="m-0">{todo.title}</p>
         <p className="m-0">{todo.content}</p>
+        <p className="m-0">{todo.deadline}</p>
+        <p className="m-0">{todo.priority}</p>
         {/* <p className="m-0">{todo.status}</p> */}
       </div>
       <button

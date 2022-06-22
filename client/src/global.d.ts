@@ -4,18 +4,20 @@ interface IList {
   listDesc: string;
 }
 interface ILists {
-  lists: IList[]
+  lists: IList[];
 }
 
 interface ITodo {
   id: string;
   title: string;
   content: string;
-  status: string
+  deadline: string;
+  status: string;
+  priority: string;
 }
 
 interface ITodos {
-  todos: ITodo[]
+  todos: ITodo[];
 }
 
 type ListCardProps = {

@@ -6,7 +6,9 @@ export const GET_TODOS = gql`
       id
       title
       content
+      deadline
       status
+      priority
     }
   }
 `;
@@ -16,7 +18,9 @@ export const GET_TODO = gql`
       id
       title
       content
+      deadline
       status
+      priority
     }
   }
 `;

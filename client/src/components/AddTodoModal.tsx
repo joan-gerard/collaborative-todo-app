@@ -7,10 +7,12 @@ import { GET_TODOS } from "../queries/todoQueries";
 const AddTodoModal = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("new");
+  const [priority, setPriority] = useState("low");
 
   const [addTodo] = useMutation(ADD_TODO, {
-    variables: { title, content, status },
+    variables: { title, content, deadline, status, priority },
 
     update(cache, { data: { addTodo } }) {
       const { todos } =
@@ -27,6 +29,8 @@ const AddTodoModal = () => {
     addTodo();
     setTitle("");
     setContent("");
+    setDeadline("");
+    setPriority("new");
   };
 
   return (
@@ -84,6 +88,30 @@ const AddTodoModal = () => {
                     onChange={(e) => setContent(e.target.value)}
                   />
                 </div>
+                <div className="mb-3">
+                  <label className="form-label">Deadline</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id="deadline"
+                    value={deadline}
+                    onChange={(e) => setDeadline(e.target.value)}
+                  ></input>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Priority</label>
+                  <select
+                    id="priority"
+                    value={priority}
+                    className="form-select"
+                    onChange={(e) => setPriority(e.target.value)}
+                  >
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                </div>
+
                 <button
                   type="submit"
                   data-bs-dismiss="modal"

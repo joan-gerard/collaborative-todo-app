@@ -18,7 +18,9 @@ const TodoType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
+    deadline: { type: GraphQLString },
     status: { type: GraphQLString },
+    priority: { type: GraphQLString },
   }),
 });
 const ListType = new GraphQLObjectType({
@@ -72,6 +74,7 @@ const mutation = new GraphQLObjectType({
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
+        deadline: { type: new GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
             name: "TodoStatus",
@@ -82,12 +85,25 @@ const mutation = new GraphQLObjectType({
           }),
           defaultValue: "Pending",
         },
+        priority: {
+          type: new GraphQLEnumType({
+            name: "TodoPriority",
+            values: {
+              low: { value: "Low" },
+              medium: { value: "Medium" },
+              high: { value: "High" },
+            },
+          }),
+          defaultValue: "Low",
+        },
       },
       resolve(parent, args) {
         const todo = new Todo({
           title: args.title,
           content: args.content,
+          deadline: args.deadline,
           status: args.status,
+          priority: args.priority,
         });
         return todo.save();
       },
