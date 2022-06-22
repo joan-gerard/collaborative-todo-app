@@ -5,11 +5,11 @@ import { ADD_LIST } from "../mutations/listMutations";
 import { GET_LISTS } from "../queries/listQueries";
 
 const AddListModal = () => {
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [listName, setListName] = useState("");
+  const [listDesc, setListDesc] = useState("");
 
   const [addList] = useMutation(ADD_LIST, {
-    variables: { listName: category, listDesc: description },
+    variables: { listName, listDesc },
 
     update(cache, { data: { addList } }) {
       const { lists } =
@@ -24,8 +24,8 @@ const AddListModal = () => {
   const handleAddList = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addList();
-    setCategory('')
-    setDescription('')
+    setListName("");
+    setListDesc("");
   };
 
   return (
@@ -69,8 +69,8 @@ const AddListModal = () => {
                     type="text"
                     className="form-control"
                     id="category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    value={listName}
+                    onChange={(e) => setListName(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
@@ -79,8 +79,8 @@ const AddListModal = () => {
                     type="text"
                     className="form-control"
                     id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={listDesc}
+                    onChange={(e) => setListDesc(e.target.value)}
                   />
                 </div>
                 <button

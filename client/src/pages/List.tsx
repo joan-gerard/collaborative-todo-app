@@ -20,7 +20,7 @@ const List = () => {
           <Link to="/" className="btn btn-light btn-sn 2-25 d-inline ms-auto">
             Home
           </Link>
-
+          <p>{data.list.id}</p>
           <p>{data.list.listName}</p>
           <p>{data.list.listDesc}</p>
         </div>
