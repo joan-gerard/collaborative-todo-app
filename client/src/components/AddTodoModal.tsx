@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { FaTasks } from "react-icons/fa";
 import { ADD_TODO } from "../mutations/todoMutations";
 import { GET_TODOS } from "../queries/todoQueries";

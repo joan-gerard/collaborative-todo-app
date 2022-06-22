@@ -8,7 +8,6 @@ import { connectDB } from "./config-db/db";
 
 const app = express();
 
-// connect tp DB
 connectDB();
 
 app.use(cors());

@@ -13,23 +13,11 @@ const Todos = () => {
   return (
     <>
       {!loading && !error && (
-        // <table className="table table-borderless table-hover mt-3">
-        //   <thead>
-        //     <tr>
-        //       <th></th>
-        //       <th></th>
-        //       <th></th>
-        //       <th></th>
-        //     </tr>
-        //   </thead>
-        //   <tbody>
         <div>
           {data.todos.map((todo: ITodo, i: number) => (
             <TodoRow key={i} todo={todo} />
           ))}
         </div>
-        //   </tbody>
-        // </table>
       )}
     </>
   );
