@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { FaTasks } from "react-icons/fa";
 import { ADD_TODO } from "../mutations/todoMutations";
 import { GET_TODOS } from "../queries/todoQueries";
+import { GET_LISTS } from "../queries/listQueries";
 
 const AddTodoModal = () => {
   const [title, setTitle] = useState("");
@@ -10,9 +11,12 @@ const AddTodoModal = () => {
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("new");
   const [priority, setPriority] = useState("low");
+  const [listId, setListId] = useState("");
+
+  const { loading, error, data } = useQuery(GET_LISTS);
 
   const [addTodo] = useMutation(ADD_TODO, {
-    variables: { title, content, deadline, status, priority },
+    variables: { title, content, deadline, status, priority, listId },
 
     update(cache, { data: { addTodo } }) {
       const { todos } =
@@ -31,6 +35,7 @@ const AddTodoModal = () => {
     setContent("");
     setDeadline("");
     setPriority("new");
+    setListId("");
   };
 
   return (
@@ -109,6 +114,24 @@ const AddTodoModal = () => {
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">List</label>
+
+                  <select
+                    id="listId"
+                    value={listId}
+                    className="form-select"
+                    onChange={(e) => setListId(e.target.value)}
+                  >
+                    <option value="">Select List</option>
+
+                    {data.lists.map((list: IList) => (
+                      <option key={list.id} value={list.id}>
+                        {list.listName}
+                      </option>
+                    ))}
                   </select>
                 </div>
 

@@ -18,6 +18,10 @@ const TodoSchema = new mongoose.Schema({
     type: String,
     enum: ["Low", "Medium", "High"],
   },
+  listId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "List",
+  },
 });
 
 export default model("Todo", TodoSchema);
