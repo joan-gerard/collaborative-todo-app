@@ -9,6 +9,11 @@ export const GET_TODOS = gql`
       deadline
       status
       priority
+      list {
+        id
+        listName
+        listDesc
+      }
     }
   }
 `;

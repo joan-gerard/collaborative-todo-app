@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -58,7 +58,7 @@ code {
   background-repeat: no-repeat;
   transition: width 300ms, margin-left 300ms;
 }
-.btn-effect:is(:hover) >div::before {
+.btn-effect:is(:hover) > div::before {
   width: 0px;
   height: 0;
   /* margin-left: 8px; */
@@ -93,12 +93,43 @@ code {
   margin-right: 6px;
 }
 
-
 .gantt-container {
-  width: 90vw; 
+  width: 90vw;
   margin: 0 auto;
 }
 
 .MuiTableRow-root {
   max-height: 5;
+}
+
+.todo-row__list-name {
+  width: 10%;
+  display: flex;
+
+
+  p {
+    background-color: green;
+    color: white;
+    border-radius: 15px;
+    padding: 0 10px;
+  }
+}
+.todo-row__list-task {
+  width: 60%;
+  padding-left: 5px;
+}
+.todo-row__list-priority {
+  width: 30%;
+
+  .deadline {
+    width: 33%;
+    // font-size: 1rem;
+    // padding-left: 1rem;
+  }
+  .status {
+    width: 23%;
+  }
+  .priority {
+    width: 25%;
+  }
 }

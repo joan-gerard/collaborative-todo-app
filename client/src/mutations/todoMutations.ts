@@ -7,6 +7,7 @@ export const ADD_TODO = gql`
     $deadline: String!
     $status: TodoStatus!
     $priority: TodoPriority!
+    $listId: ID
   ) {
     addTodo(
       title: $title
@@ -14,6 +15,7 @@ export const ADD_TODO = gql`
       deadline: $deadline
       status: $status
       priority: $priority
+      listId: $listId
     ) {
       id
       title

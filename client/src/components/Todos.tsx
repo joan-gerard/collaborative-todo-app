@@ -13,14 +13,14 @@ const Todos = () => {
 
   return (
     <>
-      {/* {!loading && !error && (
+      {!loading && !error && (
         <div>
           {data.todos.map((todo: ITodo, i: number) => (
             <TodoRow key={i} todo={todo} />
           ))}
         </div>
-      )} */}
-      <TodosTable />
+      )}
+      {/* <TodosTable /> */}
     </>
   );
 };

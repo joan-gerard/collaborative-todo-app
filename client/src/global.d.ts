@@ -14,6 +14,9 @@ interface ITodo {
   deadline: string;
   status: string;
   priority: string;
+  list: {
+    listName: string
+  }
 }
 
 interface ITodos {

@@ -37,6 +37,9 @@ const AddTodoModal = () => {
     setPriority("new");
     setListId("");
   };
+  if (loading || error) {
+    return null;
+  }
 
   return (
     <div>
@@ -73,7 +76,7 @@ const AddTodoModal = () => {
             </div>
             <div className="modal-body">
               <form onSubmit={handleAddTodo}>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input
                     type="text"
@@ -82,7 +85,7 @@ const AddTodoModal = () => {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <label className="form-label">Task</label>
                   <input
@@ -120,14 +123,14 @@ const AddTodoModal = () => {
                   <label className="form-label">List</label>
 
                   <select
-                    id="listId"
+                    id="listID"
                     value={listId}
                     className="form-select"
                     onChange={(e) => setListId(e.target.value)}
                   >
                     <option value="">Select List</option>
 
-                    {data.lists.map((list: IList) => (
+                    {data?.lists?.map((list: IList) => (
                       <option key={list.id} value={list.id}>
                         {list.listName}
                       </option>

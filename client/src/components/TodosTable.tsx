@@ -15,7 +15,7 @@ import { FaTrash } from "react-icons/fa";
 import TodoTableRow from "./TodoTableRow";
 
 interface Column {
-  id: "title" | "content" | "deadline" | "status" | "priority";
+  id: "list.listName" | "content" | "deadline" | "status" | "priority";
   label: string;
   minWidth?: number;
   align?: "right";
@@ -23,7 +23,7 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: "title", label: "Title", minWidth: 170 },
+  { id: "list.listName", label: "List", minWidth: 170 },
   { id: "content", label: "Content", minWidth: 400 },
   {
     id: "deadline",
@@ -53,17 +53,6 @@ interface Data {
   priority: string;
 }
 
-// function createData(
-//   name: string,
-//   code: string,
-//   population: number,
-//   size: number
-// ): Data {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
-
-
 export default function TodosTable() {
   const { loading, error, data } = useQuery(GET_TODOS);
 
@@ -84,8 +73,7 @@ export default function TodosTable() {
   if (loading) return <Spinner />;
   if (error) return <p>Something Went Wrong</p>;
 
-  console.log("page", page);
-  console.log("rowsPerPage", rowsPerPage);
+  console.log('TodosTable', data)
 
   return (
     <>
@@ -111,9 +99,7 @@ export default function TodosTable() {
                 {data.todos
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((todo: ITodo, i: number) => {
-                    return (
-                        <TodoTableRow columns={columns} todo={todo} i={i}  />
-                    );
+                    return <TodoTableRow columns={columns} todo={todo} i={i} />;
                   })}
               </TableBody>
             </Table>

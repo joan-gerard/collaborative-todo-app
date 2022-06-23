@@ -24,20 +24,24 @@ const TodoRow: React.FC<TodoRowProps> = ({ todo }) => {
   };
 
   return (
-    <div className="container d-flex flex-row justify-content-between border rounded mb-3 p-0">
-      <div className="ps-2">
-        <p className="m-0">{todo.title}</p>
-        <p className="m-0">{todo.content}</p>
-        <p className="m-0">{todo.deadline}</p>
-        <p className="m-0">{todo.priority}</p>
-        {/* <p className="m-0">{todo.status}</p> */}
+    <div className="d-flex border rounded mb-3 p-0">
+      <div className="ps-2 todo-row__list-name">
+        <p className="m-2">{todo.list.listName}</p>
       </div>
-      <button
-        className="btn btn-danger btn-sm"
-        onClick={() => handleDeleteTodo()}
-      >
-        <FaTrash />
-      </button>
+      <div className="todo-row__list-task">
+        <p className="m-2">{todo.content}</p>
+      </div>
+      <div className="d-flex todo-row__list-priority align-items-center">
+        <p className="m-2 deadline">{todo.deadline}</p>
+        <p className="m-0 status">{todo.status}</p>
+        <p className="m-2 priority">{todo.priority}</p>
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => handleDeleteTodo()}
+        >
+          <FaTrash />
+        </button>
+      </div>
     </div>
   );
 };
