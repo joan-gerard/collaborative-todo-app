@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_TODOS } from "../queries/todoQueries";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -10,6 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Spinner from "../components/Spinner";
+import { DELETE_TODO } from "../mutations/todoMutations";
+import { FaTrash } from "react-icons/fa";
+import TodoTableRow from "./TodoTableRow";
 
 interface Column {
   id: "title" | "content" | "deadline" | "status" | "priority";
@@ -21,23 +24,23 @@ interface Column {
 
 const columns: readonly Column[] = [
   { id: "title", label: "Title", minWidth: 170 },
-  { id: "content", label: "Content", minWidth: 100 },
+  { id: "content", label: "Content", minWidth: 400 },
   {
     id: "deadline",
     label: "Deadline",
-    minWidth: 170,
+    minWidth: 1,
     format: (value: number) => value.toLocaleString("en-US"),
   },
   {
     id: "status",
     label: "Status",
-    minWidth: 170,
+    minWidth: 1,
     format: (value: number) => value.toLocaleString("en-US"),
   },
   {
     id: "priority",
     label: "Priority",
-    minWidth: 170,
+    minWidth: 1,
     format: (value: number) => value.toFixed(2),
   },
 ];
@@ -59,6 +62,7 @@ interface Data {
 //   const density = population / size;
 //   return { name, code, population, size, density };
 // }
+
 
 export default function TodosTable() {
   const { loading, error, data } = useQuery(GET_TODOS);
@@ -100,6 +104,7 @@ export default function TodosTable() {
                       {column.label}
                     </TableCell>
                   ))}
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -107,16 +112,7 @@ export default function TodosTable() {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((todo: ITodo, i: number) => {
                     return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={i}>
-                        {columns.map((column) => {
-                          const value = todo[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
+                        <TodoTableRow columns={columns} todo={todo} i={i}  />
                     );
                   })}
               </TableBody>

@@ -98,3 +98,7 @@ code {
   width: 90vw; 
   margin: 0 auto;
 }
+
+.MuiTableRow-root {
+  max-height: 5;
+}

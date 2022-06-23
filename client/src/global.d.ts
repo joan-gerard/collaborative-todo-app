@@ -26,3 +26,10 @@ type ListCardProps = {
 type TodoRowProps = {
   todo: ITodo;
 };
+
+type TodoTableRowProps = {
+  columns: any;
+  todo: any;
+  i: number
+
+}
