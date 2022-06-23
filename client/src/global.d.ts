@@ -15,6 +15,7 @@ interface ITodo {
   status: string;
   priority: string;
   list: {
+    id: string;
     listName: string
   }
 }
