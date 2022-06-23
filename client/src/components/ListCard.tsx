@@ -3,8 +3,11 @@ import { useMutation } from "@apollo/client";
 import { DELETE_LIST } from "../mutations/listMutations";
 import { GET_LISTS } from "../queries/listQueries";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ListCard: React.FC<ListCardProps> = ({ list }) => {
+  const navigate = useNavigate();
+
   const [deleteList] = useMutation(DELETE_LIST, {
     variables: { id: list.id },
     update(cache, { data: { deleteList } }) {
@@ -35,12 +38,12 @@ const ListCard: React.FC<ListCardProps> = ({ list }) => {
             <a className="btn btn-secondary" href={`/list/${list.id}`}>
               View
             </a>
-            <button
+            {/* <button
               className="btn btn-danger btn-sm"
               onClick={() => handleDeleteList()}
             >
               <FaTrash />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

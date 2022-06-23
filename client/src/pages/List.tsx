@@ -30,20 +30,6 @@ const List = () => {
   if (loading) return <Spinner />;
   if (error) return <p>Something Went Wrong</p>;
 
-  console.log("filtered", filteredTodos);
-
-  if (!todosLoading && !todosError) {
-    console.log("todosData", todosData.todos);
-  }
-
-  // const filterTodos = () => {
-  //   if (!todosLoading && !todosError) {
-  //     let todos = todosData.todos.filter((todo: ITodo) => {
-  //       return todo.list.id === data.list.id;
-  //     });
-  //   }
-  // };
-
   return (
     <>
       {!loading && !error && !todosLoading && !todosError && (
