@@ -115,11 +115,11 @@ code {
   }
 }
 .todo-row__list-task {
-  width: 60%;
+  width: 50%;
   padding-left: 5px;
 }
 .todo-row__list-priority {
-  width: 30%;
+  width: 40%;
 
   .deadline {
     width: 33%;
@@ -127,7 +127,7 @@ code {
     // padding-left: 1rem;
   }
   .status {
-    width: 23%;
+    width: 42%;
   }
   .priority {
     width: 25%;

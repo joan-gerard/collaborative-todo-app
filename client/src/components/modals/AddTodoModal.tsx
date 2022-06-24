@@ -1,41 +1,45 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { FaTasks } from "react-icons/fa";
-import { ADD_TODO } from "../mutations/todoMutations";
-import { GET_TODOS } from "../queries/todoQueries";
-import { GET_LISTS } from "../queries/listQueries";
+import { ADD_TODO } from "../../mutations/todoMutations";
+import { GET_TODOS } from "../../queries/todoQueries";
+import { GET_LISTS } from "../../queries/listQueries";
+
+import * as io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000");
 
 const AddTodoModal = () => {
-  const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("new");
+  const [status, setStatus] = useState("Pending");
   const [priority, setPriority] = useState("low");
-  const [listId, setListId] = useState("");
+  const [listId, setListId] = useState<string | null>(null);
 
   const { loading, error, data } = useQuery(GET_LISTS);
 
   const [addTodo] = useMutation(ADD_TODO, {
-    variables: { title, content, deadline, status, priority, listId },
+    variables: { content, deadline, status, priority, listId },
 
-    update(cache, { data: { addTodo } }) {
-      const { todos } =
-        cache.readQuery<ITodos | null>({ query: GET_TODOS }) || {};
-      cache.writeQuery({
-        query: GET_TODOS,
-        data: { todos: [...(todos || []), addTodo] },
-      });
-    },
+    refetchQueries: [{ query: GET_TODOS }],
   });
 
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // if (content === "" || deadline === "" || priority === "" || listId === "") {
+    //   return alert("Please, fill all fields");
+    // }
+    socket.emit("send_todos", {
+      data: { content, deadline, status, priority, listId },
+    });
+
     addTodo();
-    setTitle("");
+    // setTitle("");
     setContent("");
     setDeadline("");
-    setPriority("new");
-    setListId("");
+    setPriority("");
   };
   if (loading || error) {
     return null;
@@ -124,7 +128,7 @@ const AddTodoModal = () => {
 
                   <select
                     id="listID"
-                    value={listId}
+                    // value={listId}
                     className="form-select"
                     onChange={(e) => setListId(e.target.value)}
                   >

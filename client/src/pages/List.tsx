@@ -20,7 +20,7 @@ const List = () => {
   useEffect(() => {
     if (!loading && !error && !todosLoading && !todosError) {
       let todos = todosData.todos.filter((todo: ITodo) => {
-        return todo.list.id === data.list.id;
+        return todo?.list?.id === data.list.id;
       });
 
       setFilteredTodos(todos);

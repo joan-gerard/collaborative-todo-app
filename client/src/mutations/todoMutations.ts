@@ -2,26 +2,20 @@ import { gql } from "@apollo/client";
 
 export const ADD_TODO = gql`
   mutation addTodo(
-    $title: String!
     $content: String!
     $deadline: String!
-    $status: TodoStatus!
     $priority: TodoPriority!
     $listId: ID
   ) {
     addTodo(
-      title: $title
       content: $content
       deadline: $deadline
-      status: $status
       priority: $priority
       listId: $listId
     ) {
       id
-      title
       content
       deadline
-      status
       priority
       list {
         id
@@ -36,11 +30,54 @@ export const DELETE_TODO = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
       id
-      title
+      content
+      deadline
+      priority
+    }
+  }
+`;
+
+export const UPDATE_TODO = gql`
+  mutation updateTodo(
+    $id: ID!
+    $content: String
+    $deadline: String
+    $priority: TodoPriorityUpdate
+    $listId: ID
+  ) {
+    updateTodo(
+      id: $id
+      content: $content
+      deadline: $deadline
+      priority: $priority
+      listId: $listId
+    ) {
+      id
+      content
+      deadline
+      priority
+      list {
+        id
+        listName
+        listDesc
+      }
+    }
+  }
+`;
+
+export const UPDATE_TODO_CONTENT = gql`
+  mutation updateTodoContent($id: ID!, $content: TodoStatusUpdateSolo!) {
+    updateTodoContent(id: $id, content: $content) {
+      id
       content
       deadline
       status
       priority
+      list {
+        id
+        listName
+        listDesc
+      }
     }
   }
 `;

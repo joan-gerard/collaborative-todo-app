@@ -5,6 +5,10 @@ import { GET_LISTS } from "../queries/listQueries";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+import * as io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000");
+
 const ListCard: React.FC<ListCardProps> = ({ list }) => {
   const navigate = useNavigate();
 
@@ -24,6 +28,9 @@ const ListCard: React.FC<ListCardProps> = ({ list }) => {
 
   const handleDeleteList = () => {
     deleteList();
+    socket.emit("delete_list", {
+      data: { list },
+    });
   };
 
   return (
@@ -38,12 +45,12 @@ const ListCard: React.FC<ListCardProps> = ({ list }) => {
             <a className="btn btn-secondary" href={`/list/${list.id}`}>
               View
             </a>
-            {/* <button
+            <button
               className="btn btn-danger btn-sm"
               onClick={() => handleDeleteList()}
             >
               <FaTrash />
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

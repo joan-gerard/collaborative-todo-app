@@ -2,7 +2,14 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import { DELETE_TODO } from "../mutations/todoMutations";
 import { GET_TODOS } from "../queries/todoQueries";
-import { FaTrash } from "react-icons/fa";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import EditTodoForm from "./modals/EditTodoForm";
+import UpdateTodoContent from "./UpdateTodoContent";
+import { FaPenAlt } from "react-icons/fa";
+
+import * as io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000");
 
 const TodoRow: React.FC<TodoRowProps> = ({ todo }) => {
   const [deleteTodo] = useMutation(DELETE_TODO, {
@@ -21,22 +28,30 @@ const TodoRow: React.FC<TodoRowProps> = ({ todo }) => {
 
   const handleDeleteTodo = () => {
     deleteTodo();
+    socket.emit("delete_project", {
+      data: { id: todo.id },
+    });
   };
 
   return (
-    <div className="d-flex border rounded mb-3 p-0">
+    <div className="d-flex border rounded my-2 p-0">
       <div className="ps-2 todo-row__list-name">
-        <p className="m-2">{todo.list.listName}</p>
+        <p className="m-2">{todo?.list?.listName}</p>
       </div>
       <div className="todo-row__list-task">
-        <p className="m-2">{todo.content}</p>
+        <div className="d-flex align-items-center">
+          {/* <UpdateTodoContent todo={todo} /> */}
+          <p className="m-2">{todo.content}</p>
+        </div>
       </div>
-      <div className="d-flex todo-row__list-priority align-items-center">
+      <div className="d-flex todo-row__list-priority align-items-center justify-content-between">
         <p className="m-2 deadline">{todo.deadline}</p>
-        <p className="m-0 status">{todo.status}</p>
         <p className="m-2 priority">{todo.priority}</p>
+
+        <EditTodoForm todo={todo} listId={todo?.list?.id || null} />
+
         <button
-          className="btn btn-danger btn-sm"
+          className="btn btn-danger btn-sm me-3"
           onClick={() => handleDeleteTodo()}
         >
           <FaTrash />

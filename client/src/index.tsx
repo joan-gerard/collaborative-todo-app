@@ -1,15 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import { createClient } from "@liveblocks/client";
+import { LiveblocksProvider, RoomProvider } from "@liveblocks/react";
+
+const client = createClient({
+  publicApiKey: "pk_live_3DAcOixU5uE7GdMn39oA9FHs",
+});
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <LiveblocksProvider client={client}>
+      <RoomProvider id="salt-code-test">
+        <App />
+      </RoomProvider>
+    </LiveblocksProvider>
   </React.StrictMode>
 );
 

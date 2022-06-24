@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { FaClipboardList } from "react-icons/fa";
 import { useMutation } from "@apollo/client";
-import { ADD_LIST } from "../mutations/listMutations";
-import { GET_LISTS } from "../queries/listQueries";
+import { ADD_LIST } from "../../mutations/listMutations";
+import { GET_LISTS } from "../../queries/listQueries";
+
+import * as io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000");
+
 
 const AddListModal = () => {
   const [listName, setListName] = useState("");
@@ -11,18 +16,25 @@ const AddListModal = () => {
   const [addList] = useMutation(ADD_LIST, {
     variables: { listName, listDesc },
 
-    update(cache, { data: { addList } }) {
-      const { lists } =
-        cache.readQuery<ILists | null>({ query: GET_LISTS }) || {};
-      cache.writeQuery({
-        query: GET_LISTS,
-        data: { lists: [...(lists || []), addList] },
-      });
-    },
+    // update(cache, { data: { addList } }) {
+    //   const { lists } =
+    //     cache.readQuery<ILists | null>({ query: GET_LISTS }) || {};
+    //   cache.writeQuery({
+    //     query: GET_LISTS,
+    //     data: { lists: [...(lists || []), addList] },
+    //   });
+    // },
+    refetchQueries: [{query: GET_LISTS}]
+
   });
 
   const handleAddList = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    socket.emit("send_lists", {
+      data: { listName, listDesc }
+    });
+
     addList();
     setListName("");
     setListDesc("");
@@ -32,7 +44,7 @@ const AddListModal = () => {
     <div>
       <button
         type="button"
-        className="btn btn-secondary mt-3"
+        className="btn btn-secondary my-3"
         data-bs-toggle="modal"
         data-bs-target="#addListModal"
       >

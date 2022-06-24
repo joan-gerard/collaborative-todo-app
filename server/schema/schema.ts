@@ -10,16 +10,16 @@ import {
   GraphQLSchema,
   GraphQLString,
 } from "graphql";
+import { resolve } from "path";
 
 // Types
 const TodoType = new GraphQLObjectType({
   name: "Todo",
   fields: () => ({
     id: { type: GraphQLID },
-    title: { type: GraphQLString },
+    // title: { type: GraphQLString },
     content: { type: GraphQLString },
     deadline: { type: GraphQLString },
-    status: { type: GraphQLString },
     priority: { type: GraphQLString },
     list: {
       type: ListType,
@@ -78,19 +78,9 @@ const mutation = new GraphQLObjectType({
     addTodo: {
       type: TodoType,
       args: {
-        title: { type: new GraphQLNonNull(GraphQLString) },
+        // title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
         deadline: { type: new GraphQLNonNull(GraphQLString) },
-        status: {
-          type: new GraphQLEnumType({
-            name: "TodoStatus",
-            values: {
-              new: { value: "Pending" },
-              completed: { value: "Done" },
-            },
-          }),
-          defaultValue: "Pending",
-        },
         priority: {
           type: new GraphQLEnumType({
             name: "TodoPriority",
@@ -100,7 +90,7 @@ const mutation = new GraphQLObjectType({
               high: { value: "High" },
             },
           }),
-          defaultValue: "Low",
+          // defaultValue: "Low",
         },
         listId: { type: GraphQLID },
       },
@@ -109,9 +99,8 @@ const mutation = new GraphQLObjectType({
           title: args.title,
           content: args.content,
           deadline: args.deadline,
-          status: args.status,
           priority: args.priority,
-          listId: args.listId
+          listId: args.listId,
         });
         return todo.save();
       },
@@ -146,6 +135,59 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Todo.findByIdAndRemove(args.id);
+      },
+    },
+    updateTodo: {
+      type: TodoType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: GraphQLString },
+        content: { type: GraphQLString },
+        deadline: { type: GraphQLString },
+        priority: {
+          type: new GraphQLEnumType({
+            name: "TodoPriorityUpdate",
+            values: {
+              low: { value: "Low" },
+              medium: { value: "Medium" },
+              high: { value: "High" },
+            },
+          }),
+        },
+        listId: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        return Todo.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              title: args.title,
+              content: args.content,
+              deadline: args.deadline,
+              priority: args.priority,
+              listId: args.listId,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
+    updateTodoContent: {
+      type: TodoType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        content: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Todo.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              content: args.content,
+            },
+          },
+          { new: true }
+        );
       },
     },
   },

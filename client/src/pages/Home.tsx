@@ -1,16 +1,17 @@
 import React from "react";
-import AddListModal from "../components/AddListModal";
-import AddTodoModal from "../components/AddTodoModal";
+import AddListModal from "../components/modals/AddListModal";
+import AddTodoModal from "../components/modals/AddTodoModal";
 import Lists from "../components/Lists";
 import Todos from "../components/Todos";
 
 const Home = () => {
   return (
     <div>
-      <AddTodoModal />
-      <Todos />
-      <AddListModal />
-      <Lists />
+        <AddTodoModal />
+        <Todos />
+        <hr />
+        <AddListModal />
+        <Lists />
     </div>
   );
 };

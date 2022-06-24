@@ -35,5 +35,8 @@ type TodoTableRowProps = {
   columns: any;
   todo: any;
   i: number
-
+}
+type EditTodoFormProps = { 
+  todo: ITodo;
+  listId: string | null 
 }
