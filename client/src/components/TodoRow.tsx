@@ -45,8 +45,9 @@ const TodoRow: React.FC<TodoRowProps> = ({ todo }) => {
         </div>
       </div>
       <div className="d-flex todo-row__list-priority align-items-center justify-content-between">
-        <p className="m-2 deadline">{todo.deadline}</p>
         <p className="m-2 priority">{todo.priority}</p>
+        <p className="m-2 deadline">{todo.deadline}</p>
+        <p className="m-2 status">{todo.status}</p>
 
         <EditTodoForm todo={todo} listId={todo?.list?.id || null} />
 

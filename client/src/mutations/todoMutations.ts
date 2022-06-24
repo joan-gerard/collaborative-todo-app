@@ -5,18 +5,21 @@ export const ADD_TODO = gql`
     $content: String!
     $deadline: String!
     $priority: TodoPriority!
+    $status: TodoStatus!
     $listId: ID
   ) {
     addTodo(
       content: $content
       deadline: $deadline
       priority: $priority
+      status: $status
       listId: $listId
     ) {
       id
       content
       deadline
       priority
+      status
       list {
         id
         listName
@@ -33,6 +36,7 @@ export const DELETE_TODO = gql`
       content
       deadline
       priority
+      status
     }
   }
 `;
@@ -43,6 +47,7 @@ export const UPDATE_TODO = gql`
     $content: String
     $deadline: String
     $priority: TodoPriorityUpdate
+    $status: TodoStatusUpdate
     $listId: ID
   ) {
     updateTodo(
@@ -50,12 +55,14 @@ export const UPDATE_TODO = gql`
       content: $content
       deadline: $deadline
       priority: $priority
+      status: $status
       listId: $listId
     ) {
       id
       content
       deadline
       priority
+      status
       list {
         id
         listName

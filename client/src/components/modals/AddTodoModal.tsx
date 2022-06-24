@@ -13,7 +13,7 @@ const AddTodoModal = () => {
   // const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("Pending");
+  const [status, setStatus] = useState("pending");
   const [priority, setPriority] = useState("low");
   const [listId, setListId] = useState<string | null>(null);
 
@@ -40,6 +40,7 @@ const AddTodoModal = () => {
     setContent("");
     setDeadline("");
     setPriority("");
+    setStatus("");
   };
   if (loading || error) {
     return null;
@@ -121,6 +122,18 @@ const AddTodoModal = () => {
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Status</label>
+                  <select
+                    id="status"
+                    value={status}
+                    className="form-select"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="done">Done</option>
                   </select>
                 </div>
                 <div className="mb-3">

@@ -22,6 +22,7 @@ const EditTodoForm: React.FC<EditTodoFormProps> = ({ todo, listId }) => {
       content: editedTodo?.content,
       deadline: editedTodo?.deadline,
       priority: editedTodo?.priority?.toLowerCase(),
+      status: editedTodo?.status?.toLowerCase(),
       listId: editedTodo?.listId,
     },
     refetchQueries: [{ query: GET_TODO, variables: { id: editedTodo?.id } }],
@@ -74,6 +75,17 @@ const EditTodoForm: React.FC<EditTodoFormProps> = ({ todo, listId }) => {
         setEditedTodo({
           ...editedTodo,
           priority,
+        });
+      }
+    },
+    [editedTodo]
+  );
+  const setStatus = useCallback(
+    (status: string) => {
+      if (editedTodo) {
+        setEditedTodo({
+          ...editedTodo,
+          status,
         });
       }
     },
@@ -170,6 +182,18 @@ const EditTodoForm: React.FC<EditTodoFormProps> = ({ todo, listId }) => {
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Status</label>
+                  <select
+                    id="status"
+                    value={editedTodo?.status}
+                    className="form-select"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="done">Done</option>
                   </select>
                 </div>
                 <div className="mb-3">

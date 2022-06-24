@@ -7,6 +7,7 @@ export const GET_TODOS = gql`
       content
       deadline
       priority
+      status
       list {
         id
         listName
@@ -22,6 +23,7 @@ export const GET_TODO = gql`
       content
       deadline
       priority
+      status
       list {
         id
         listName

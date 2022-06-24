@@ -14,6 +14,10 @@ const TodoSchema = new mongoose.Schema({
     type: String,
     enum: ["Low", "Medium", "High"],
   },
+  status: {
+    type: String,
+    enum: ["Pending", "Done"],
+  },
   listId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "List",

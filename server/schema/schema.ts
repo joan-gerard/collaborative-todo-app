@@ -21,6 +21,7 @@ const TodoType = new GraphQLObjectType({
     content: { type: GraphQLString },
     deadline: { type: GraphQLString },
     priority: { type: GraphQLString },
+    status: { type: GraphQLString },
     list: {
       type: ListType,
       resolve(parent, args) {
@@ -80,7 +81,7 @@ const mutation = new GraphQLObjectType({
       args: {
         // title: { type: new GraphQLNonNull(GraphQLString) },
         content: { type: new GraphQLNonNull(GraphQLString) },
-        deadline: { type: new GraphQLNonNull(GraphQLString) },
+        deadline: { type: GraphQLString },
         priority: {
           type: new GraphQLEnumType({
             name: "TodoPriority",
@@ -92,6 +93,15 @@ const mutation = new GraphQLObjectType({
           }),
           // defaultValue: "Low",
         },
+        status: {
+          type: new GraphQLEnumType({
+            name: "TodoStatus",
+            values: {
+              pending: { value: "Pending" },
+              done: { value: "Done" },
+            },
+          }),
+        },
         listId: { type: GraphQLID },
       },
       resolve(parent, args) {
@@ -100,6 +110,7 @@ const mutation = new GraphQLObjectType({
           content: args.content,
           deadline: args.deadline,
           priority: args.priority,
+          status: args.status,
           listId: args.listId,
         });
         return todo.save();
@@ -154,6 +165,15 @@ const mutation = new GraphQLObjectType({
             },
           }),
         },
+        status: {
+          type: new GraphQLEnumType({
+            name: "TodoStatusUpdate",
+            values: {
+              pending: { value: "Pending" },
+              done: { value: "Done" },
+            },
+          }),
+        },
         listId: { type: GraphQLID },
       },
       resolve(parent, args) {
@@ -165,6 +185,7 @@ const mutation = new GraphQLObjectType({
               content: args.content,
               deadline: args.deadline,
               priority: args.priority,
+              status: args.status,
               listId: args.listId,
             },
           },
